@@ -5,7 +5,7 @@ const DayList = (props)=>{
   const days = props.days.map(day => {
     return( <DaysListItem 
         key = {day.id} 
-        name = {day.name}
+        name= {day.name}
         spots = {day.spots}
         selected = {day.name === props.day}
         setDay = {props.setDay}

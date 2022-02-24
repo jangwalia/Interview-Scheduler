@@ -9,6 +9,7 @@ import InterviewerList from "components/InterviewerList";
 import "index.scss";
 
 import Button from "components/Button";
+import { act } from "@testing-library/react";
 
 storiesOf("Button", module)
   .addParameters({
@@ -25,17 +26,7 @@ storiesOf("Button", module)
       Disabled
     </Button>
   ));
-  // STORY FOR DayListItem
-  storiesOf("DaysListItem", module) 
-  .addParameters({
-    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-  }) 
-  .add("Unselected", () => <DaysListItem name="Monday" spots={5} />) 
-  .add("Selected", () => <DaysListItem name="Monday" spots={5} selected />) 
-  .add("Full", () => <DaysListItem name="Monday" spots={0} />)
-  .add("Clickable", () => (
-    <DaysListItem name="Tuesday" setDay={action("setDay")} spots={5} /> 
-  ));
+ 
 
   //STORY FOR DAYLIST
   const days = [
@@ -55,7 +46,18 @@ storiesOf("Button", module)
       spots: 0,
     },
   ];
-  
+   // STORY FOR DayListItem
+   storiesOf("DaysListItem", module) 
+   .addParameters({
+     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+   }) 
+   .add("Unselected", () => <DaysListItem name="Monday" spots={5} />) 
+   .add("Selected", () => <DaysListItem name="Monday" spots={5} selected />) 
+   .add("Full", () => <DaysListItem name="Monday" spots={0} />)
+   .add("Clickable", () => (
+     <DaysListItem name="Tuesday" setDay={action("setDay")} spots={5} /> 
+   ));
+   //STORY OF DAYLIST
   storiesOf("DayList", module)
     .addParameters({
       backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
@@ -102,7 +104,7 @@ storiesOf("Button", module)
           id={interviewer.id}
           name={interviewer.name}
           avatar={interviewer.avatar}
-          setInterviewer={action("setInterviewer")}
+          setInterviewer={()=>action("setInterviewer")(interviewer.id)}
         />
       ));
 
