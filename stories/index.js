@@ -15,6 +15,7 @@ import Error from "components/Appointment/Error";
 import "index.scss";
 import Button from "components/Button";
 import Confirm from "components/Appointment/Confirm";
+import Form from "components/Appointment/Form"
 
 storiesOf("Button", module)
   .addParameters({
@@ -182,7 +183,21 @@ storiesOf("Button", module)
     message="Could not delete appointment."
     onClose={action("onClose")}
   
-  />);
+  />)
+  .add("Edit",()=> <Form
+    student="Jang Walia"
+    interviewer={1}
+    interviewers={interviewers}
+    onSave={action("onSave")}
+    onCancel={action("onCancel")}
+  
+  />)
+  .add("Create",()=><Form
+    interviewers={interviewers}
+    onSave={action("onSave")}
+    onCancel={action("onCancel")}
+  
+  />)
 
 
 
