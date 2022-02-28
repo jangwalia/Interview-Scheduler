@@ -12,13 +12,18 @@ export default function Appointment(props){
       return `${props.time}`
     }
   }
-  const checkInterview = props.interview ? <Show 
-  student={props.interview.student} 
-  interviewer={props.interview.interviewer.name}/> : <Empty/>
+
   return (
     <article className="appointment">
-    <Header time={props.time}/>
-    {checkInterview}
+      <Header time={props.time}/>
+      {props.interview ? 
+        <Show 
+          student={props.interview.student} 
+          interviewer={props.interview.interviewer.name}/>
+        : 
+        
+        <Empty/>
+      }
     </article>
   );
 }
