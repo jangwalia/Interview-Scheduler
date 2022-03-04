@@ -3,30 +3,38 @@ import DayList from "./DayList";
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import Appointment from "./Appointment/index";
-
-
+import getAppointmentsForDay from '../helper/Selecter'
 export default function Application(props) {
-  const [day,setDay] = useState("Monday")
-  const [days,setDays] = useState([])
+  
+  const [state,setState] = useState({
+    day : "Monday",
+    days : [],
+    appointments:{}
+  });
+
+  const setDay = day => setState({ ...state, day });
   useEffect(()=>{
-    axios.get('http://localhost:8001/api/days').then(response =>{
-      setDays([...response.data]);
-  })
+    Promise.all([
+      axios.get('http://localhost:8001/api/days'),
+      axios.get('http://localhost:8001/api/appointments')
+    ])
+    .then((all)=>{
+      setState(prev => ({...prev,days:all[0].data,appointments:all[1].data}));
+      
+    })
+    
   },[])
 
-  useEffect(()=>{
-    axios.get('http://localhost:8001/api/appointments').then(appointments =>{
-      Object.values(appointments).map(appointment => {
+    const appointmentsData = getAppointmentsForDay(state,state.day);
+    const schedule = appointmentsData.map(appointment => {
         return(
           <Appointment
           key={appointment.id}
           {...appointment}
         />
-         
         )
       });
-    })
-  },[day])
+
   
   
 return (
@@ -40,8 +48,8 @@ return (
 <hr className="sidebar__separator sidebar--centered" />
 <nav className="sidebar__menu">
   <DayList
-  days = {days}
-  value = {day}
+  days = {state.days}
+  value = {state.day}
   onChange = {setDay}
   />
 </nav>
@@ -52,7 +60,7 @@ return (
 />
 </section>
 <section className="schedule">
-        
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
 </main>

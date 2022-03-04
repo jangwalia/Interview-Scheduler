@@ -28,7 +28,7 @@ const state = {
     }
   }
 };
-export function getAppointmentsForDay(state, day) {
+export default function getAppointmentsForDay(state, day) {
   //... returns an array of appointments for that day
   let result = [];
   const days = state['days'];
