@@ -49,3 +49,17 @@ export  function getInterview(state, interview){
   return null;
  
 }
+
+//GET INTERVIEWERS FOR DAY FUNCTION
+
+export function getInterviewersForDay(state,day){
+  if (state.days.length === 0) {
+    return []
+  }
+  const getDay = state.days.filter(d => d.name === day)
+  if (getDay.length === 0) {
+    return []
+  }
+  return getDay[0].interviewers.map(i => state.interviewers[i])
+}
+
