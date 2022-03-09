@@ -44,6 +44,7 @@ return (
   days = {state.days}
   value = {state.day}
   onChange = {setDay}
+ 
   />
 </nav>
 <img

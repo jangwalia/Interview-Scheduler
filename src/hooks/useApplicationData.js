@@ -3,6 +3,7 @@ import axios from "axios";
 
 
 export default function useApplicationData() {
+
   const [state,setState] = useState({
     day : "Monday",
     days : [],
@@ -10,6 +11,7 @@ export default function useApplicationData() {
     interviewers : {}
   });
   const setDay = day => setState({ ...state, day });
+  
   useEffect(()=>{
     Promise.all([
       axios.get('http://localhost:8001/api/days'),
@@ -22,6 +24,23 @@ export default function useApplicationData() {
     })
     
   },[])
+ //function to change spots remaining
+  function updateSpots(appointments){
+    const selectedDay = state.days.find(day => day.name === state.day)
+    const selectedAppointments = selectedDay.appointments.map(appointment => {
+      return appointments[appointment].interview
+    }).filter(interview => interview === null)
+    selectedDay.spots = selectedAppointments.length
+    const days = [...state.days].map(day => {
+      if(day.name === state.day){
+      return selectedDay
+    } 
+    return day
+    })
+
+    setState(prev =>({...prev,days}))
+    }
+  
 
 //creating new appontment
 function bookInterview(id, interview) {
@@ -36,8 +55,10 @@ function bookInterview(id, interview) {
 
   return axios.put(`http://localhost:8001/api/appointments/${id}`,{interview})
   .then(response =>{
+    updateSpots(appointments);
     //console.log(response)
     setState(prev =>({...prev,appointments}))
+
   })   //setState(prev =>({...prev,appointments:response.data,id}))
 
 }
@@ -56,6 +77,7 @@ function cacelInterview(id){
 
   return axios.delete(`http://localhost:8001/api/appointments/${id}`)
     .then(response => {
+      updateSpots(appointments);
       setState(prev => ({...prev,appointments}))
     })    
 }
