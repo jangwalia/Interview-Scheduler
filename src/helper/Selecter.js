@@ -41,8 +41,8 @@ export  function getAppointmentsForDay(state, day) {
 //   },
 //get interview object
 export  function getInterview(state, interview){
-  if(interview && interview.interveiwer){
-    const interviewer = state.interviewers[interview.interveiwer]
+  if(interview && interview.interviewer){
+    const interviewer = state.interviewers[interview.interviewer]
     console.log(interviewer)
     return {...interview,interviewer}
   }

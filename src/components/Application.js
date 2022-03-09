@@ -4,6 +4,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import Appointment from "./Appointment/index";
 import {getAppointmentsForDay,getInterview,getInterviewersForDay} from '../helper/Selecter'
+
 export default function Application(props) {
   const [state,setState] = useState({
     day : "Monday",
@@ -11,6 +12,42 @@ export default function Application(props) {
     appointments:{},
     interviewers : {}
   });
+
+  function cacelInterview(id){
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+        ...state.appointments,
+        [id]: appointment
+    };
+
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(response => {
+        setState(prev => ({...prev,appointments}))
+      })    
+  }
+
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+  
+    return axios.put(`http://localhost:8001/api/appointments/${id}`,{interview})
+    .then(response =>{
+      //console.log(response)
+      setState(prev =>({...prev,appointments}))
+    })   //setState(prev =>({...prev,appointments:response.data,id}))
+  
+  }
   
   const setDay = day => setState({ ...state, day });
   useEffect(()=>{
@@ -28,14 +65,17 @@ export default function Application(props) {
     const interviewersForDay = getInterviewersForDay(state,state.day);
     const appointmentsData = getAppointmentsForDay(state,state.day);
     const schedule = appointmentsData.map(appointment => {
+        const interview = getInterview(state,appointment.interview)
         return(
           <Appointment 
             key={appointment.id} 
             id={appointment.id} 
             time={appointment.time} 
-            interview={appointment.interview} 
+            interview={interview} 
             interviewers={interviewersForDay}
-/>
+            bookInterview={bookInterview}
+            cancelInterview={cacelInterview}
+/>    
         )
       });
 
