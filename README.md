@@ -21,3 +21,14 @@ npm test
 ```sh
 npm run storybook
 ```
+## Homepage
+![Homepage](./public/images/HomePage.png)
+
+## Create Appointment
+![Create](./public/images/Create.png)
+
+## Delete Appointment
+![Delete](./public/images/Delete.png)
+
+## Confirm Action
+![Confirm](./public/images/Confirm.png)
