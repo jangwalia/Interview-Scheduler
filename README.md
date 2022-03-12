@@ -39,6 +39,3 @@ npm run storybook
 * axios
 * classnames
 * normalize.css
-* Express
-* Chance
-* Node 5.10.x or above
