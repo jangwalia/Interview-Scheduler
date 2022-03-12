@@ -32,3 +32,13 @@ npm run storybook
 
 ## Confirm Action
 ![Confirm](./public/images/Confirm.png)
+## Dependencies
+* react
+* react-dom
+* react-scripts
+* axios
+* classnames
+* normalize.css
+* Express
+* Chance
+* Node 5.10.x or above

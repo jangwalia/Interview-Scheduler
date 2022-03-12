@@ -1,6 +1,6 @@
 
 export  function getAppointmentsForDay(state, day) {
-  //... returns an array of appointments for that day
+ 
   let result = [];
   const days = state.days;
   const appointments = state['appointments'];
@@ -19,27 +19,7 @@ export  function getAppointmentsForDay(state, day) {
   return result;
 }
 
-
-//STATE. INTERVIEWRS:
-// 1: {
-//   id: 1,
-//   name: "Sylvia Palmer",
-//   avatar: "https://i.imgur.com/LpaY82x.png"
-//   },
-// 2: {
-//   id: 2,
-//   name: "Tori Malcolm",
-//   avatar: "https://i.imgur.com/Nmx0Qxo.png"
-//   },
-
-//APPOINTMENTS.INTERVIEWS
-
-// 1: {
-//   id: 1,
-//   time: "12pm",
-//   interview: { student: "Archie Cohen", interviewer: 2 }
-//   },
-//get interview object
+//function to get Interviews
 export  function getInterview(state, interview){
   if(interview && interview.interviewer){
     const interviewer = state.interviewers[interview.interviewer]
