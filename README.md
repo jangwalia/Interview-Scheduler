@@ -32,6 +32,7 @@ npm run storybook
 
 ## Confirm Action
 ![Confirm](./public/images/Confirm.png)
+
 ## Dependencies
 * react
 * react-dom
@@ -39,3 +40,8 @@ npm run storybook
 * axios
 * classnames
 * normalize.css
+
+## About Backend
+This project relies upon the use of  scheduler-api server running in backend.
+
+Link to the scheduler-api repo: https://github.com/jangwalia/scheduler-api
