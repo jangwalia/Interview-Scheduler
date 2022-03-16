@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, waitForElement} from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
 import { fireEvent } from "@testing-library/react";
@@ -64,7 +64,7 @@ describe("Form", () => {
     expect(onSave).toHaveBeenCalledTimes(1);
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
   });
-  it("calls onCancel and resets the input field", () => {
+  it("calls onCancel and resets the input field", async () => {
     const onCancel = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
       <Form
@@ -82,11 +82,13 @@ describe("Form", () => {
     });
   
     fireEvent.click(getByText("Cancel"));
-  
-    expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
-  
-    expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
-  
-    expect(onCancel).toHaveBeenCalledTimes(1);
+    //? Using waitForElement package to make the return call async
+    waitForElement(() => {
+      expect(queryByText(/student name cannot be blank/i)).toBeNull();
+      expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
+      expect(onCancel).toHaveBeenCalledTimes(1);
+          })
+   
+   
   });
 });
