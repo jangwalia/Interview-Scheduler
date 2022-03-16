@@ -41,16 +41,12 @@ export default function Appointment(props){
   }
 
   function save(name, interviewer) {
-    if(!name || !interviewer){
-      alert("Please enter name and interviewer");
-      return 
-    }
+    transition(SAVING)
     const interview = {
       student: name,
       interviewer
     };
-    transition(SAVING)
-    props
+   props
     .bookInterview(props.id,interview)
     .then(response => transition(SHOW))
     .catch(err => transition(ERROR_SAVE,true))
