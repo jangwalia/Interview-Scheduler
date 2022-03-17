@@ -51,7 +51,7 @@ export default function Appointment(props) {
       .catch((err) => transition(ERROR_SAVE, true));
   }
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
 
       {mode === CONFIRM && (
