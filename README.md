@@ -1,5 +1,5 @@
 # Interview Scheduler
-
+- Single Page React App to book , update and delete an appointment
 ## Setup
 
 Install dependencies with `npm install`.
